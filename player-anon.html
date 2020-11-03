@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        background-color: black;
+        font-family: monospace;
+        color: #ffffff;
+      }
+
+      center {
+        margin: 0 auto
+      }
+
+      canvas {
+           position: absolute;
+           top: 65%;
+           left: 50%;
+           /* font-family: monospace; */
+           /* width:100%; */
+           /* height:100%; */
+           z-index:-2;
+           transform: translate(-50%,-50%);
+           display: inline-block;
+        }
+
+      /* from https://www.w3schools.com/howto/howto_js_rangeslider.asp */
+      .slidecontainer {
+        /* position: fixed; */
+        position: absolute;
+        top: 65%;
+        /* left: 50%; */
+        text-align: center;
+        z-index:-1;
+        margin: 0 auto;
+        width: 100%;
+        /* transform: translate(-50%,-50%); */
+      }
+
+            /* The slider itself */
+      .slider {
+        -webkit-appearance: none;  /* Override default CSS styles */
+        appearance: none;
+        width: 300px; /* Full-width */
+        height: 6px; /* Specified height */
+        background: darkgray; /* Grey background */
+        outline: none; /* Remove outline */
+        opacity: 1; /* Set transparency (for mouse-over effects on hover) */
+        -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+        transition: opacity .2s;
+        border-radius: 5px;
+      }
+
+      /* Mouse-over effects */
+      .slider:hover {
+        opacity: 1; /* Fully shown on mouse-over */
+      }
+
+      .slider::-webkit-slider-thumb {
+        -webkit-appearance: none; /* Override default look */
+        appearance: none;
+        width: 20px; /* Set a specific slider handle width */
+        height: 12px; /* Slider handle height */
+        background: #00ff00; /* Green background */
+        /* opacity: 1; */
+        cursor: pointer; /* Cursor on hover */
+        border-radius: 20px;
+      }
+
+      #player {
+        position: absolute;
+        top:  33%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+      }
+    </style>
+    <script src='yt-iframe.js' type='text/javascript'></script>
+    <script src="p5.min.js" type='text/javascript'></script>
+    <script src="p5.sound.min.js" type='text/javascript'></script>
+    <script src="sketch.js" type='text/javascript'></script>
+  </head>
+  <body>
+    <!-- <audio id="audiotoplay" loop="true" src="footsteps.mp3" type="audio/mpeg"
+      preload="auto">Please work dummy</audio>
+    <div> -->
+      <!-- begin with the interface hidden while the foley audio loads -->
+      <div id="loading" style="display: none">
+        <div id="player">
+        </div>
+          <div class="slidecontainer">
+            <text>Play the video and use the fader below to choose your soundtrack.</text><br><br>
+            <text id='foley-text'>Channel A</text>
+            <input type="range" width="500" min="1" max="100" value="50" class="slider" id="volume">
+            <text id='ai-text'>Channel B</text>
+          </div>
+    </div>
+    <!-- <script src="sketch.js" type='text/javascript'></script> -->
+    <script type="text/javascript">
+      let foleyAlpha, aiAlpha;
+      let firstTime = true;
+      var slider = document.getElementById("volume");
+      let volume = slider.value = 50;
+      let foleyText = document.getElementById("foley-text");
+      let aiText = document.getElementById("ai-text");
+      let loading = document.getElementById("loading");
+
+      // if it's the first time you click the slider, play the video
+      slider.onclick = () => {
+        if (firstTime) {
+          player.play();
+        }
+      }
+
+      // Update the current slider value (each time you drag the slider handle)
+      slider.oninput = function() {
+        volume = this.value; // from 1 to 100
+        let mapFoleyVolume = map(volume, 1, 100, 1.0, 0.0);
+        let mapAiVolume = map(volume, 1, 100, 0.0, 1.0);
+
+        // if the slider volume goes to 0, mute the player
+        if (volume < 1) {
+          player.mute();  // no sound bleeding through
+        } else {
+          player.unMute();
+          player.setVolume(map(volume, 0, 100, 0, 75)); // max volume 15
+        }
+        foleyAudio.setVolume(mapFoleyVolume);
+
+        if (!firstTime) {
+          foleyText.style.opacity = map(volume, 0, 100, 1.0, 0.1);
+          aiText.style.opacity = map(volume, 0, 100, 0.1, 1.0);
+        }
+        // console.log("video volume is ", mapAiVolume)
+        // console.log("audio volume is ", mapFoleyVolume)
+      }
+
+    </script>
+    <div id="canvascontainer">
+      <canvas></canvas>
+    </div>
+  </body>
+</html>
