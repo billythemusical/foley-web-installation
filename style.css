@@ -1,0 +1,71 @@
+body {
+  background-color: black;
+  font-family: monospace;
+  color: #ffffff;
+}
+
+center {
+  margin: 0 auto
+}
+
+canvas {
+     position: absolute;
+     top: 65%;
+     left: 50%;
+     /* font-family: monospace; */
+     /* width:100%; */
+     /* height:100%; */
+     z-index:-2;
+     transform: translate(-50%,-50%);
+     display: inline-block;
+  }
+
+/* from https://www.w3schools.com/howto/howto_js_rangeslider.asp */
+.slidecontainer {
+  /* position: fixed; */
+  position: absolute;
+  top: 65%;
+  /* left: 50%; */
+  text-align: center;
+  z-index:-1;
+  margin: 0 auto;
+  width: 100%;
+  /* transform: translate(-50%,-50%); */
+}
+
+      /* The slider itself */
+.slider {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 300px; /* Full-width */
+  height: 6px; /* Specified height */
+  background: darkgray; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 1; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+  border-radius: 5px;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 20px; /* Set a specific slider handle width */
+  height: 12px; /* Slider handle height */
+  background: #00ff00; /* Green background */
+  /* opacity: 1; */
+  cursor: pointer; /* Cursor on hover */
+  border-radius: 20px;
+}
+
+#player {
+  position: absolute;
+  top:  33%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
