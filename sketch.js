@@ -1,7 +1,9 @@
-let foleyAudio;
+// let foleyAudio;
+let aiAudio;
 
 function preload() {
-  foleyAudio = loadSound('orr_bounce_FULL_10-30-2020_mix2.mp3', audioLoaded, undefined, whileLoading);
+  // foleyAudio = loadSound('orr_bounce_FULL_10-30-2020_mix2.mp3', audioLoaded, undefined, whileLoading);
+  aiAudio = loadSound('sound_no_human.ogg', audioLoaded, undefined, whileLoading);
 }
 
 function audioLoaded(s) {
@@ -20,6 +22,8 @@ function whileLoading() {
 }
 
 function setup() {
-  foleyAudio.setVolume(0.8);
-  foleyAlpha = 0;
+  // foleyAudio.setVolume(0.8);
+  // foleyAlpha = 0;
+  aiAudio.setVolume(0.8);
+  aiAlpha = 0;
 }

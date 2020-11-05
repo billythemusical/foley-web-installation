@@ -46,14 +46,14 @@
         let mapFoleyVolume = map(volume, 1, 100, 1.0, 0.0);
         let mapAiVolume = map(volume, 1, 100, 0.0, 1.0);
 
-        // if the slider volume goes to 0, mute the player
-        if (volume < 1) {
+        // if the slider volume goes to 99 (far right), mute the player
+        if (volume > 99) {
           player.mute();  // no sound bleeding through
         } else {
           player.unMute();
-          player.setVolume(map(volume, 0, 100, 0, 75)); // max volume 15
+          player.setVolume(map(volume, 0, 100, 75, 0)); // max volume
         }
-        foleyAudio.setVolume(mapFoleyVolume);
+        aiAudio.setVolume(mapAiVolume);
 
         if (!firstTime) {
           foleyText.style.opacity = map(volume, 0, 100, 1.0, 0.1);

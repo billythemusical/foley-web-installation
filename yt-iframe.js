@@ -16,7 +16,7 @@
     player = new YT.Player('player', {
       height: '480',
       width: '640',
-      videoId: 'FQiSK9Wo9kw',
+      videoId: 'QUicB9iyDY8',
       playerVars: { 'autoplay': 0, 'controls': 0 },
       events: {
         'onReady': onPlayerReady,
@@ -35,25 +35,26 @@
   }
 
   function onPlayerStateChange(event) {
-    let foleyText = document.getElementById("foley-text")
+    console.log(event);
+    let foleyText = document.getElementById("foley-text");
+    let aiText = document.getElementById("ai-text");
+
     if(firstTime) {
       foleyText.style.opacity = 0.5;
       aiText.style.opacity = 0.5;
-      // aiAlpha = 127;  // don't need if not doing amplitude msmt
       player.setVolume(75);
     }
+
     if (event.data == 1) { // is playing
-      // togglePlay(true);
-      foleyAudio.play(0.1);
-      // aiAudio.play(0.1); // don't need if not doing amplitude msmt
+      // foleyAudio.play(0.1);
+      aiAudio.play(0.1);
       firstTime = false;
     } else if (event.data == 2) { // is paused
-      // togglePlay(false);
-      foleyAudio.pause(0.1);
-      // aiAudio.pause(0.1);  // don't need if not doing amplitude msmt
+      // foleyAudio.pause(0.1);
+      aiAudio.pause(0.1);
       firstTime = false;
     } else if (event.data == 0) { // is stopped
-      foleyAudio.stop(0.1);
-      // aiAudio.stop(0.1); // don't need if not doing amplitude msmt
+      // foleyAudio.stop(0.1);
+      aiAudio.stop(0.1);
     }
   }
